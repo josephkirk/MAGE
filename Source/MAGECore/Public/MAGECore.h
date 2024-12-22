@@ -4,11 +4,16 @@
 
 #include "Modules/ModuleManager.h"
 
-class FMAGEModule : public IModuleInterface
+class FMAGECoreModule : public IModuleInterface
 {
 public:
 
 	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
+
+	static FMAGECoreModule& Get()
+	{
+		return FModuleManager::LoadModuleChecked<FMAGECoreModule>("MAGECore");
+	}
 };

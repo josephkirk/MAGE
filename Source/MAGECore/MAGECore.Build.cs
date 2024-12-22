@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MAGE : ModuleRules
+public class MAGECore : ModuleRules
 {
-	public MAGE(ReadOnlyTargetRules Target) : base(Target)
+	public MAGECore(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -39,8 +39,7 @@ public class MAGE : ModuleRules
 				"Engine",
 				"GameplayTags",
 				"ModularGameplay",
-				"GameFeatures",
-				"MAGECore"
+				"GameFeatures"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

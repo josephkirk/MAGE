@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MAGE : ModuleRules
+public class MAGEDebug : ModuleRules
 {
-	public MAGE(ReadOnlyTargetRules Target) : base(Target)
+	public MAGEDebug(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
