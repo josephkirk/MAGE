@@ -1,56 +1,21 @@
-MAGE Framework Community License v1.0
+# MIT License
 
-1. Grant of Rights
-   - Use, modify, and distribute the software
-   - Create and distribute derivative works
-   - Use in commercial projects within revenue limits
+Copyright (c) 2024 MAGE Framework Contributors
 
-2. Revenue Limits
-   - Free for:
-     * Individual developers
-     * Companies with annual revenue under $1M USD
-     * Non-profit organizations
-     * Educational institutions
-     * Open source projects
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-3. Requirements
-   - Maintain copyright notices
-   - Include copy of this license
-   - Disclose source code modifications
-   - Share improvements back to community
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-4. Restrictions
-   - No removing/modifying license terms
-   - No use above revenue threshold
-   - No sublicensing beyond these terms
-
-5. Automatic Commercial License Requirement
-   When any of the following are met:
-   - Annual company revenue exceeds $1M USD
-   - Project budget exceeds $500K USD
-   - More than 20 employees using MAGE
-
-MAGE Framework Enterprise License
-
-1. Commercial Rights
-   - Unlimited usage rights
-   - Private modifications allowed
-   - No requirement to share changes
-   - Priority support access
-   - Additional features:
-     * Enterprise deployment tools
-     * Advanced monitoring
-     * Technical support
-     * Training materials
-
-2. License Terms
-   - Annual subscription based on:
-     * Company size
-     * Number of developers
-     * Revenue tier
-   - Perpetual license options available
-
-3. Support Tiers
-   - Standard: Email support, 48h response
-   - Premium: Direct support line, 24h response
-   - Enterprise: Dedicated support team, 4h response
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

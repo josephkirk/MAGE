@@ -4,7 +4,7 @@
 MAGE is an experimental learning project that explores implementing Entity Component System (ECS) patterns and Gameplay Ability System (GAS) concepts in Unreal Engine. It serves as an educational resource for understanding how to bridge different architectural approaches in game development.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.1+-blue.svg)](https://www.unrealengine.com)
+[![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.5+-blue.svg)](https://www.unrealengine.com)
 
 ## ⚠️ Educational Project Notice
 
