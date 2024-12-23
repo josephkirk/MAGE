@@ -1,197 +1,220 @@
 # MAGE Framework
 ## Modular Actor Gameplay Extension System
 
-MAGE is a high-performance, modular gameplay framework for Unreal Engine that bridges ECS principles with Unreal's actor-component model. It provides a structured approach to building scalable game systems while maintaining compatibility with Unreal Engine's ecosystem.
+MAGE is an experimental learning project that explores implementing Entity Component System (ECS) patterns and Gameplay Ability System (GAS) concepts in Unreal Engine. It serves as an educational resource for understanding how to bridge different architectural approaches in game development.
 
-[![License](https://img.shields.io/badge/license-MAGE%20Community-blue.svg)](LICENSE.md)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.1+-blue.svg)](https://www.unrealengine.com)
 
-## Overview
+## ⚠️ Educational Project Notice
 
-MAGE combines the best aspects of Entity Component System (ECS) architecture with Unreal Engine's native patterns:
+This is a **learning project** designed to explore and understand:
+- ECS architecture principles in an Unreal context
+- Alternative approaches to Unreal's Gameplay Ability System
+- High-performance entity management
+- Data-oriented design patterns
 
-- **Data-Oriented Design**: Clear separation between data (components) and logic (systems)
-- **Modular Architecture**: Systems are isolated, maintainable, and easily toggled
-- **Performance Focused**: Optimized component updates without per-frame ticking
-- **Unreal Integration**: Seamless integration with Unreal Engine's features
-- **Game Feature Plugins**: Built on UE's modular gameplay feature system
-- **Event-Driven**: Rich event system for component communication
+While functional, this framework is primarily for educational purposes and may not be suitable for production use without significant testing and refinement.
 
-## Key Features
+## 🎯 Project Goals
 
-- 🏗️ **Modular Systems**: Self-contained gameplay systems that can be enabled/disabled at runtime
-- 🎮 **Game Feature Integration**: Built on UE's game feature plugin system
-- 🔌 **Component Framework**: Lightweight, data-focused components
-- ⚡ **Event System**: Robust event handling between components and systems
-- 🎯 **Tag-based Queries**: Efficient component queries using gameplay tags
-- 🛠️ **Development Tools**: Debug visualization and system monitoring
-- 📊 **Performance Tools**: Built-in profiling and optimization utilities
+1. **Learning & Exploration**
+   - Understand ECS principles
+   - Study GAS architecture
+   - Explore performance optimization
+   - Practice systems design
 
-## Architecture Overview
+2. **Architectural Experimentation**
+   - Bridge ECS and Unreal's actor model
+   - Implement GAS concepts without actor dependencies
+   - Explore data-oriented design
+   - Test different optimization strategies
 
-```mermaid
-graph TD
-    A[Game Instance] --> B[MAGE Subsystem]
-    B --> C[System Registry]
-    B --> D[Component Registry]
-    C --> E[Gameplay Systems]
-    D --> F[Components]
-    E --> G[Health System]
-    E --> H[Inventory System]
-    E --> I[Combat System]
-    F --> J[Health Component]
-    F --> K[Inventory Component]
-    F --> L[Combat Component]
-```
+3. **Documentation & Teaching**
+   - Clear code examples
+   - Detailed explanations
+   - Implementation alternatives
+   - Design decision rationales
 
-## Development Roadmap
+## 🏗️ Core Features
 
-### Phase 1: Foundation (Q1 2025)
-- [x] Core framework architecture
-- [x] Basic component system
-- [x] System management
-- [x] Event handling
-- [ ] Documentation framework
-- [ ] Basic example project
-- [ ] Unit testing framework
+- **ECS-Style Architecture**
+  - Entity pooling for performance
+  - Component-based design
+  - System-driven logic
+  - Data-oriented approach
 
-### Phase 2: Core Systems (Q2 2025)
-- [ ] Health/Damage system
-- [ ] Inventory system
-- [ ] Basic AI system
-- [ ] Interaction system
-- [ ] Save/Load system
-- [ ] Performance profiling
-- [ ] Debug visualization
+- **Gameplay Tags Integration**
+  - Tag-based filtering
+  - Component categorization
+  - System matching
+  - Dynamic queries
 
-### Phase 3: Advanced Features (Q3 2025)
-- [ ] Network replication
-- [ ] Advanced AI behaviors
-- [ ] Quest system
-- [ ] Dialog system
-- [ ] Advanced inventory
-- [ ] Crafting system
-- [ ] Achievement system
+- **Ability System Concepts**
+  - Ability definitions
+  - Effect management
+  - Visual feedback
+  - State handling
 
-### Phase 4: Enterprise & Tools (Q4 2025)
-- [ ] Visual system editor
-- [ ] Advanced debugging tools
-- [ ] Performance optimization tools
-- [ ] System dependency visualization
-- [ ] Component relationship viewer
-- [ ] Enterprise deployment tools
-- [ ] Advanced monitoring
+- **Performance Focus**
+  - Efficient entity storage
+  - Component pooling
+  - Optimized queries
+  - Minimal overhead
 
-### Phase 5: Ecosystem (2026)
-- [ ] Marketplace integration
-- [ ] Plugin ecosystem
-- [ ] Community tools
-- [ ] Advanced examples
-- [ ] Training materials
-- [ ] Integration guides
-- [ ] Performance benchmarks
+## 🔍 Key Design Decisions
 
-## Getting Started
+1. **Entity Management**
+   ```cpp
+   // Entities are just IDs, all data lives in components
+   struct FMAGEEntityId
+   {
+       uint32 Index;
+       uint32 Version;
+   };
+   ```
 
-1. **Installation**
-```bash
-# Clone the repository
-git clone https://github.com/your-org/mage-framework.git
+2. **Component Storage**
+   ```cpp
+   // Components are pure data
+   struct FHealthComponentData : public FMAGEComponentData
+   {
+       float CurrentHealth;
+       float MaxHealth;
+   };
+   ```
 
-# Add to your project's plugins directory
-cp -r mage-framework/MAGE [YourProject]/Plugins/
-```
+3. **System Architecture**
+   ```cpp
+   // Systems process component data
+   class UHealthSystem : public UMAGESystemBase
+   {
+       virtual void Update(float DeltaTime) override;
+   };
+   ```
 
-2. **Basic Setup**
+## 📚 Learning Resources
+
+This project draws inspiration from and builds upon these concepts:
+
+- [Entity Component System Overview](https://en.wikipedia.org/wiki/Entity_component_system)
+- [Unreal Engine Gameplay Ability System](https://docs.unrealengine.com/5.1/en-US/gameplay-ability-system-for-unreal-engine/)
+- [Data-Oriented Design](https://en.wikipedia.org/wiki/Data-oriented_design)
+- [Gameplay Tags in Unreal Engine](https://docs.unrealengine.com/5.1/en-US/gameplay-tags-in-unreal-engine/)
+
+## 🚀 Getting Started
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/mage-framework.git
+   ```
+
+2. **Add to Your Project**
+   ```
+   Copy the MAGE plugin to your project's Plugins directory
+   Enable the plugin in your .uproject file
+   ```
+
+3. **Basic Usage**
+   ```cpp
+   // Create an entity
+   FMAGEEntityId Entity = EntityManager->CreateEntity();
+   
+   // Add components
+   auto& Health = EntityManager->AddComponent<FHealthComponentData>(Entity);
+   Health.MaxHealth = 100.0f;
+   
+   // Systems automatically process matching components
+   ```
+
+## ⚙️ Core Systems
+
+1. **Entity Management**
+   - Entity creation/destruction
+   - Component attachment
+   - Entity pooling
+   - Memory management
+
+2. **Component System**
+   - Data storage
+   - Tag integration
+   - State management
+   - Efficient access
+
+3. **Ability Framework**
+   - Ability definitions
+   - Effect system
+   - Visual feedback
+   - State handling
+
+## 📋 Example Usage
+
 ```cpp
-// Enable the plugin in your project
-// Edit [YourProject].uproject:
-{
-    "Plugins": [
-        {
-            "Name": "MAGE",
-            "Enabled": true
-        }
-    ]
-}
-```
-
-3. **Create Your First System**
-```cpp
-UCLASS()
-class UHealthSystem : public UMAGESystem
-{
-    GENERATED_BODY()
-public:
-    virtual void Initialize() override;
-    virtual void Update(float DeltaTime) override;
-};
-```
-
-## Example Usage
-
-```cpp
-// Create a component
-UCLASS()
-class UHealthComponent : public UMAGEComponent
+// Define a component
+USTRUCT()
+struct FHealthComponent : public FMAGEComponentData
 {
     GENERATED_BODY()
     
-public:
-    UPROPERTY(EditAnywhere)
-    float MaxHealth = 100.0f;
-    
-    UPROPERTY(Replicated)
     float CurrentHealth = 100.0f;
+    float MaxHealth = 100.0f;
 };
 
-// Create a game feature
+// Create a system
 UCLASS()
-class UHealthFeature : public UMAGEFeatureData
+class UHealthSystem : public UMAGESystemBase
 {
     GENERATED_BODY()
     
-public:
-    UHealthFeature()
+    virtual void Update(float DeltaTime) override
     {
-        SystemClasses.Add(UHealthSystem::StaticClass());
+        // Process all entities with health components
+        auto View = GetEntityManager()->CreateView<FHealthComponent>();
+        for (auto [Health] : View)
+        {
+            // Update health logic
+        }
     }
 };
 ```
 
-## Contributing
+## 🔧 Limitations & Considerations
 
-We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+- **Experimental Nature**: This is a learning project, not production-ready code
+- **Performance Testing**: Needs thorough benchmarking
+- **Networking**: Basic implementation, needs more work
+- **Documentation**: Work in progress
+- **Testing**: Needs more comprehensive tests
 
-## License
+## 🤝 Contributing
 
-MAGE is available under two licenses:
+This is an educational project, and we welcome contributions that help others learn:
+- Code examples
+- Documentation improvements
+- Performance optimizations
+- Tutorial content
+- Bug fixes
 
-- **Community License**: Free for indie developers and companies with revenue under $1M USD
-- **Enterprise License**: For larger companies and commercial projects
+## 📖 Learning Goals
 
-See [LICENSE.md](LICENSE.md) for details.
+1. **Understanding ECS**
+   - Component data separation
+   - System-driven logic
+   - Entity management
+   - Performance optimization
 
-## Support
+2. **GAS Concepts**
+   - Ability implementation
+   - Effect systems
+   - State management
+   - Visual feedback
 
-- 📚 [Documentation](docs/README.md)
-- 💬 [Discord Community](https://discord.gg/mage)
-- 🐛 [Issue Tracker](https://github.com/your-org/mage/issues)
-- 📧 [Professional Support](https://mage-framework.com/support)
+3. **Performance Patterns**
+   - Data orientation
+   - Memory management
+   - Efficient iteration
+   - Cache optimization
 
-## Enterprise Features
+## 📝 License
 
-The Enterprise version includes additional features:
-- Advanced monitoring tools
-- Deployment automation
-- Priority support
-- Training materials
-- Custom integration support
-
-Contact sales@mage-framework.com for enterprise licensing.
-
-## Project Status
-
-MAGE is currently in active development. We follow semantic versioning and maintain a detailed [changelog](CHANGELOG.md).
-
-Would you like me to elaborate on any particular aspect of the framework or add more details to specific sections of the roadmap?
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
