@@ -2,6 +2,7 @@
 
 #include "MAGECore.h"
 
+DEFINE_LOG_CATEGORY(LogMAGE);
 #define LOCTEXT_NAMESPACE "FMAGEModule"
 
 void FMAGECoreModule::StartupModule()

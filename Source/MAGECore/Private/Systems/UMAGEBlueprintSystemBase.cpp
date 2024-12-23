@@ -1,7 +1,8 @@
 ﻿#include "Systems/MAGEBlueprintSystemBase.h"
 #include "Components/MAGEComponent.h"
+#include "MAGECore.h"
 #include "DrawDebugHelpers.h"
-
+#include UE_INLINE_GENERATED_CPP_BY_NAME(MAGEBlueprintSystemBase)
 UMAGEBlueprintSystemBase::UMAGEBlueprintSystemBase()
 {
     bAutoActivate = true;

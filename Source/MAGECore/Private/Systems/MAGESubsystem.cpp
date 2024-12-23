@@ -1,6 +1,9 @@
 ﻿#include "Systems/MAGESubsystem.h"
 #include "Components/MAGEComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "MAGECore.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(MAGESubsystem)
 DECLARE_STATS_GROUP(TEXT("MAGE"), STATGROUP_MAGE, STATCAT_Advanced);
 DECLARE_CYCLE_STAT(TEXT("Tick Mage System"), STAT_MAGESubsystem_Tick, STATGROUP_MAGE);
 
@@ -137,4 +140,157 @@ void UMAGESubsystem::SortSystems()
 		// Then check priorities
 		return A->GetUpdatePriority() > B->GetUpdatePriority();
 	});
+}
+
+
+UMAGESubsystem* UMAGESubsystem::Get(const UObject* WorldContextObject)
+{
+    if (!WorldContextObject) return nullptr;
+    
+    if (UWorld* World = WorldContextObject->GetWorld())
+    {
+        if (UGameInstance* GameInstance = World->GetGameInstance())
+        {
+            return GameInstance->GetSubsystem<UMAGESubsystem>();
+        }
+    }
+    return nullptr;
+}
+
+bool UMAGESubsystem::RegisterSystemBP(UObject* System)
+{
+    if (!ValidateSystem(System))
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to register system: Invalid system object"));
+        return false;
+    }
+    
+    IMAGESystemInterface* MAGESystem = Cast<IMAGESystemInterface>(System);
+    if (!MAGESystem)
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to register system: Object does not implement IMAGESystemInterface"));
+        return false;
+    }
+    
+    RegisterSystem(System);
+    return true;
+}
+
+bool UMAGESubsystem::UnregisterSystemBP(UObject* System)
+{
+    if (!ValidateSystem(System))
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to unregister system: Invalid system object"));
+        return false;
+    }
+    
+    if (!System->GetClass()->ImplementsInterface(UMAGESystemInterface::StaticClass()))
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to unregister system: Object does not implement IMAGESystemInterface"));
+        return false;
+    }
+    
+    UnregisterSystem(System);
+    return true;
+}
+
+bool UMAGESubsystem::RegisterComponentBP(UMAGEComponent* Component)
+{
+    if (!Component)
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to register component: Invalid component"));
+        return false;
+    }
+    
+    if (!Component->IsValidLowLevel())
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to register component: Component is pending kill"));
+        return false;
+    }
+    
+    RegisterComponent(Component);
+    return true;
+}
+
+bool UMAGESubsystem::UnregisterComponentBP(UMAGEComponent* Component)
+{
+    if (!Component)
+    {
+        UE_LOG(LogMAGE, Warning, TEXT("Failed to unregister component: Invalid component"));
+        return false;
+    }
+    
+    UnregisterComponent(Component);
+    return true;
+}
+
+TArray<UObject*> UMAGESubsystem::GetRegisteredSystems() const
+{
+    TArray<UObject*> Result;
+    for (const auto& System : Systems)
+    {
+        if (UObject* SystemObj = System.GetObject())
+        {
+            Result.Add(SystemObj);
+        }
+    }
+    return Result;
+}
+
+UObject* UMAGESubsystem::GetSystemByClass(TSubclassOf<UObject> SystemClass) const
+{
+    if (!SystemClass) return nullptr;
+    
+    for (const auto& System : Systems)
+    {
+        if (UObject* SystemObj = System.GetObject())
+        {
+            if (SystemObj->IsA(SystemClass))
+            {
+                return SystemObj;
+            }
+        }
+    }
+    return nullptr;
+}
+
+TArray<UMAGEComponent*> UMAGESubsystem::GetRegisteredComponents() const
+{
+    TArray<UMAGEComponent*> Result;
+    for (const auto& WeakComponent : Components)
+    {
+        if (UMAGEComponent* Component = WeakComponent.Get())
+        {
+            Result.Add(Component);
+        }
+    }
+    return Result;
+}
+
+void UMAGESubsystem::DrawDebugInfo(bool bEnabled)
+{
+    bShowDebug = bEnabled;
+}
+
+FString UMAGESubsystem::GetSystemDebugString() const
+{
+    FString Result = TEXT("MAGE Systems:\n");
+    
+    for (const auto& System : Systems)
+    {
+        if (UObject* SystemObj = System.GetObject())
+        {
+            Result += FString::Printf(TEXT("- %s (Priority: %d)\n"), 
+                *SystemObj->GetClass()->GetName(),
+                System->GetUpdatePriority());
+        }
+    }
+    
+    Result += FString::Printf(TEXT("\nRegistered Components: %d"), Components.Num());
+    return Result;
+}
+
+bool UMAGESubsystem::ValidateSystem(const UObject* System)
+{
+    return System && System->IsValidLowLevel();
 }

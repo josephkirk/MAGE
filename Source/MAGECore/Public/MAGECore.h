@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
+
+MAGECORE_API DECLARE_LOG_CATEGORY_EXTERN(LogMAGE, Log, All);
 
 class FMAGECoreModule : public IModuleInterface
 {
